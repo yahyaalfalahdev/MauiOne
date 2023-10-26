@@ -1,0 +1,32 @@
+﻿namespace MauiOne;
+
+public partial class MainPage : ContentPage
+{
+	int count = 0;
+	private string _token;
+
+	public MainPage()
+	{
+		InitializeComponent();
+
+        if (Preferences.ContainsKey("DeviceToken"))
+        {
+			_token = Preferences.Get("DeviceToken", "");
+        }
+    }
+
+	private void OnCounterClicked(object sender, EventArgs e)
+	{
+		count++;
+
+		if (count == 1)
+			CounterBtn.Text = $"Clicked {count} time";
+		else
+			CounterBtn.Text = $"Clicked {count} times";
+
+		SemanticScreenReader.Announce(CounterBtn.Text);
+
+		//var push
+	}
+}
+

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "701331767650",
+    "project_id": "maui-845f9",
+    "storage_bucket": "maui-845f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701331767650:android:7c67580ab2e5b730caec3b",
+        "android_client_info": {
+          "package_name": "yahya.mineretstest.maui"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAiMvvDO5XylFmcz_LNixTVrz9bqz7fz4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701331767650:android:dea2bc829c0ade9ecaec3b",
+        "android_client_info": {
+          "package_name": "yahya.mineretstest.maui6"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAiMvvDO5XylFmcz_LNixTVrz9bqz7fz4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
