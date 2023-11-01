@@ -26,6 +26,11 @@
 
 	</PropertyGroup>
 
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+		<PackageReference Include="Xamarin.Kotlin.StdLib.Jdk7" Version="1.7.10" ExcludeAssets="build;buildTransitive" />
+		<PackageReference Include="Xamarin.Kotlin.StdLib.Jdk8" Version="1.7.10" ExcludeAssets="build;buildTransitive" />
+	</ItemGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -54,12 +59,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="FCM.Net.Core" Version="1.0.1" />
-	  <PackageReference Include="FirebaseAdminCore" Version="2.0.0" />
 	  <PackageReference Include="Plugin.Firebase" Version="2.0.6" />
 	  <PackageReference Include="Plugin.Firebase.CloudMessaging" Version="2.0.3" />
-	  <PackageReference Include="Plugin.Firebase.Core" Version="2.0.1" />
 	  <PackageReference Include="Plugin.Firebase.Crashlytics" Version="2.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Platforms\Android\Services\" />
 	</ItemGroup>
 
 </Project>

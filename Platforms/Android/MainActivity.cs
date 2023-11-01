@@ -1,29 +1,52 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.OS;
+using Plugin.Firebase.CloudMessaging;
 
 namespace MauiOne;
 
 [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
 public class MainActivity : MauiAppCompatActivity
 {
-    internal static readonly string Channel_ID = "TestChannel";
-    internal static readonly int Notification_ID = 101;
     protected override void OnCreate(Bundle savedInstanceState)
     {
         base.OnCreate(savedInstanceState);
-
-        CreateNotificationChannel();
+        HandleIntent(Intent);
+        CreateNotificationChannelIfNeeded();
     }
 
-    private void CreateNotificationChannel() 
+    protected override void OnNewIntent(Intent intent)
     {
-        if (OperatingSystem.IsOSPlatformVersionAtLeast("android", 26))
-        {
-            var channel = new NotificationChannel(Channel_ID, "Test", NotificationImportance.Default);
-            var notificationManager = (NotificationManager)GetSystemService(Android.Content.Context.NotificationService);
+        base.OnNewIntent(intent);
+        HandleIntent(intent);
+    }
 
-            notificationManager.CreateNotificationChannel(channel);
+    private static void HandleIntent(Intent intent)
+    {
+        FirebaseCloudMessagingImplementation.OnNewIntent(intent);
+    }
+
+    private void CreateNotificationChannelIfNeeded()
+    {
+        if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+        {
+            CreateNotificationChannel();
         }
+    }
+
+    private void CreateNotificationChannel()
+    {
+        var channelId = $"{PackageName}.general";
+        var notificationManager = (NotificationManager)GetSystemService(NotificationService);
+#if ANDROID26_0_OR_GREATER
+        if(Build.VERSION.SdkInt >= BuildVersionCodes.O)
+        {
+            var channel = new NotificationChannel(channelId, "General", NotificationImportance.Default);
+            notificationManager.CreateNotificationChannel(channel);
+        }     
+        FirebaseCloudMessagingImplementation.ChannelId = channelId;
+        //FirebaseCloudMessagingImplementation.SmallIconRef = Resource.Drawable.ic_push_small;
+#endif
     }
 }

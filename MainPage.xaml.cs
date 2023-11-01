@@ -1,32 +1,35 @@
-﻿namespace MauiOne;
+﻿using Plugin.Firebase.CloudMessaging;
+using System.Diagnostics;
+
+namespace MauiOne;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
-	private string _token;
-
 	public MainPage()
 	{
 		InitializeComponent();
-
-        if (Preferences.ContainsKey("DeviceToken"))
-        {
-			_token = Preferences.Get("DeviceToken", "");
-        }
     }
 
-	private void OnCounterClicked(object sender, EventArgs e)
+	private async void OnCounterClicked(object sender, EventArgs e)
 	{
-		count++;
+        await CrossFirebaseCloudMessaging.Current.CheckIfValidAsync();
 
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
+        var token = await CrossFirebaseCloudMessaging.Current.GetTokenAsync();
 
-		SemanticScreenReader.Announce(CounterBtn.Text);
+        await Shell.Current.DisplayAlert("FCM token", token, "OK");
 
-		//var push
-	}
+        Debug.WriteLine($"FCM token: {token}");
+
+        //count++;
+
+        //if (count == 1)
+        //	CounterBtn.Text = $"Clicked {count} time";
+        //else
+        //	CounterBtn.Text = $"Clicked {count} times";
+
+        //SemanticScreenReader.Announce(CounterBtn.Text);
+
+        //var push
+    }
 }
 
